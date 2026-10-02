@@ -1,18 +1,131 @@
-# Salesforce DX Project: Next Steps
+# Customer Support Ticket Priority Prediction and Automated Assignment System Using Agentforce
 
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
+## Project Overview
 
-## How Do You Plan to Deploy Your Changes?
+This project is a Salesforce-based customer support ticket intelligence system built using Agentforce and Salesforce Flow.
 
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
+The system retrieves the latest support ticket for a customer account, analyzes the ticket description using predefined priority rules, classifies the ticket as High, Medium, or Low priority, and provides the appropriate support assignment.
 
-## Configure Your Salesforce DX Project
+For High-priority tickets, the Salesforce Flow creates an urgent ticket-handling task.
 
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
+## Technology Stack
 
-## Read All About It
+- Salesforce
+- Agentforce
+- Salesforce Flow
+- Salesforce Custom Objects
+- Salesforce CLI
+- GitHub
 
-- [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-- [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+## Main Components
+
+### Custom Object
+
+**Support Ticket Intelligence**
+
+API Name:
+
+`Support_Ticket_Intelligence__c`
+
+The object stores customer support ticket information including:
+
+- Customer Account
+- Contact
+- Issue Type
+- Description
+- Priority Level
+- Status
+- Created Date
+- Assigned To
+- SLA Breach Risk
+- Resolution Time
+
+## Agentforce
+
+Agent:
+
+**NM Support Agent**
+
+Subagent:
+
+**Support Ticket Priority Analysis**
+
+Agent Action:
+
+**Analyze Support Ticket Priority**
+
+The Agentforce action accepts the customer Account Name and invokes the Salesforce Flow.
+
+## Automation Flow
+
+Flow:
+
+`Support_Ticket_Intelligence`
+
+The Flow:
+
+1. Retrieves the customer Account.
+2. Retrieves the latest support ticket.
+3. Checks whether a ticket exists.
+4. Analyzes the ticket description.
+5. Determines High, Medium, or Low priority.
+6. Creates an urgent task for High-priority tickets.
+7. Determines the appropriate support assignment.
+8. Returns the result to Agentforce.
+
+## Priority Rules
+
+### High Priority
+
+Triggered by keywords such as:
+
+- urgent
+- not working
+- failure
+
+### Medium Priority
+
+Triggered by keywords such as:
+
+- issue
+- slow
+- delay
+
+### Low Priority
+
+Tickets that do not match the High or Medium keyword rules are classified as Low.
+
+## Testing
+
+The implementation was tested with:
+
+- High-priority ticket
+- Medium-priority ticket
+- Low-priority ticket
+- Missing Account Name
+- No Support Ticket
+
+The runtime tests were completed successfully for the documented scenarios.
+
+## Documentation
+
+The complete project implementation report is included in this repository.
+
+## Project Structure
+
+```text
+force-app/
+└── main/
+    └── default/
+        ├── aiAuthoringBundles/
+        ├── flows/
+        ├── layouts/
+        ├── objects/
+        └── permissionsets/
+
+config/
+├── project-scratch-def.json
+└── ...
+
+sfdx-project.json
+README.md
