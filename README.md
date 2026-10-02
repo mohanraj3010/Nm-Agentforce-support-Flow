@@ -14,7 +14,6 @@ For High-priority tickets, the Salesforce Flow creates an urgent ticket-handling
 - Agentforce
 - Salesforce Flow
 - Salesforce Custom Objects
-- Salesforce CLI
 - GitHub
 
 ## Main Components
